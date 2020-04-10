@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${customer.name + ' customer detail'}"></title>
 </head>
 <body>
-    <div th:text="${customer}"></div>
+<section>
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-6 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-title" th:text="${customer.name}"></span>
+            <a href="#information" class="page-subtitle">Information</a>
+            <a href="#services" class="page-subtitle">Services</a>
+            <a href="#resources" class="page-subtitle">Resources</a>
+            <a href="#settings" class="page-subtitle">Settings</a>
+        </div>
+    </div>
+    <div class="tab-content-area">
+        <div class="row">
+            <div th:each="service : ${customer.services}" class="col-lg-3 col-md-4 col-sm-12 mb-4">
+                <div class="card card-small card-post card-post--1">
+                    <div class="card-post__image"
+                         th:style="'background-image: url(https://gradientjoy.com/300x200?' + ${service.id} + ')'">
+                        <span class="card-post__category badge badge-pill badge-dark" th:switch="${service.type}">
+                            <span th:case="0">One time</span>
+                            <span th:case="1">Concurrent</span>
+                        </span>
+                        <div class="card-post__author d-flex">
+                            <a href="#" class="card-post__author-avatar card-post__author-avatar--small"
+                               style="background-image: url('https://gradientjoy.com/300x200');">Written by Anna
+                                Kunis</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a class="text-fiord-blue" th:href="@{'/service/' + ${id}}" th:text="${service.name}"></a>
+                        </h5>
+                        <p class="card-text d-inline-block mb-3">Created at <span
+                                th:text="${{service.createdDate}}"></span></p>
+                        <span class="text-muted">Last modified: <span th:text="${{service.updatedDate}}"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-12 mb-4">
+                <div class="card card-small card-post card-post--1">
+                    <div class="card-body">
+                        <h5 class="card-title">Create new service</h5>
+                        <p class="card-text d-inline-block mb-3 text-muted">Create new service for this customer. Please
+                            enter the name and type of the service:</p>
+                        <form th:action="@{'/customer/' + ${customer.id} + '/createService'}" method="post">
+                            <div class="form-row">
+                                <div class="form-group col-md-7">
+                                    <input name="name" type="text" class="form-control" placeholder="Service name">
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <select name="type" class="form-control">
+                                        <option selected value="0">One time service</option>
+                                        <option value="1">Concurrent service</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-accent" type="submit">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

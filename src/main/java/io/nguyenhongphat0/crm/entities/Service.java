@@ -11,6 +11,7 @@ public class Service {
     private Long id;
     private String name;
     private String information;
+    private Integer type;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private boolean disabled;
@@ -18,8 +19,20 @@ public class Service {
     @ManyToOne
     private Customer customer;
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @OneToMany(mappedBy = "service")
     private List<ServiceItem> items;
+
+    public Service() {
+        this.createdDate = this.updatedDate = LocalDateTime.now();
+    }
 
     public List<ServiceItem> getItems() {
         return items;
@@ -51,6 +64,14 @@ public class Service {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public LocalDateTime getCreatedDate() {
