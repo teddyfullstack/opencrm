@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Management</title>
+</head>
+<body>
+    <section>
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-6 text-center text-sm-left mb-0">
+                <span class="text-uppercase page-subtitle">Customer Management</span>
+                <h3 class="page-title">All customers</h3>
+            </div>
+            <div class="col-12 col-sm-6 text-center text-sm-right mb-0">
+                <form th:action="@{/customer/create}" method="post" class="form-group">
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="New customer name" aria-label="Name">
+                        <div class="input-group-append">
+                            <button class="btn btn-accent" type="submit">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card card-small mb-4">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">Active Users</h6>
+                    </div>
+                    <div class="card-body p-0 pb-3 text-center">
+                        <table class="table mb-0">
+                            <thead class="bg-light">
+                            <tr>
+                                <th scope="col" class="border-0">#</th>
+                                <th scope="col" class="border-0">Name</th>
+                                <th scope="col" class="border-0">Last Active</th>
+                                <th scope="col" class="border-0">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="customer : ${customers}">
+                                <td th:text="${customer.id}"></td>
+                                <td th:text="${customer.name}"></td>
+                                <td th:text="${{customer.updatedDate}}"></td>
+                                <td><a th:href="@{'/customer/' + ${customer.id}}" class="btn btn-accent">View</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

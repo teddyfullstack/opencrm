@@ -10,17 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
     @Autowired CustomerRepository customerRepository;
 
     @GetMapping("/test")
-    public String test(@RequestParam String search, Model model) {
-        String name = RandomString.make(10);
-        Customer customer = new Customer(name);
-        customerRepository.save(customer);
-        model.addAttribute("customers", customerRepository.findByNameContaining(search));
-        return "test";
+    public String test() {
+        customerRepository.deleteAll();
+        return "index";
     }
 }

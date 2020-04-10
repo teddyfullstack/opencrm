@@ -5,29 +5,36 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class Customer {
+public class Service {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     private String name;
     private String information;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private boolean disabled;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Service> services;
+    @ManyToOne
+    private Customer customer;
+
+    @OneToMany(mappedBy = "service")
+    private List<ServiceItem> items;
+
+    public List<ServiceItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ServiceItem> items) {
+        this.items = items;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public Customer() {
-        this.createdDate = this.updatedDate = LocalDateTime.now();
-    }
-
-    public Customer(String name) {
-        this();
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -60,5 +67,13 @@ public class Customer {
 
     public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }
