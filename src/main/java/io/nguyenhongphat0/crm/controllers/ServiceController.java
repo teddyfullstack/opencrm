@@ -78,8 +78,18 @@ public class ServiceController {
     @GetMapping("/{id}/export")
     public void export(@PathVariable long id, HttpServletResponse response) {
         Map<String, Object> model = new HashMap();
-        model.put("service", serviceRepository.findById(id));
+        Service service = serviceRepository.findById(id);
+        model.put("service", service);
+        double total = 0;
+        for (ServiceItem item : service.getItems()) {
+            total += item.getPrice();
+        }
+        final double tax = 0.08;
+        final double grandTotal = total + total*tax;
+        model.put("tax", tax);
+        model.put("total", total);
+        model.put("grandTotal", grandTotal);
         byte[] data = PdfUtil.generatePdf(springTemplateEngine, "pdf/quotation", model);
-        PdfUtil.responsePdf(response, data, "report.pdf");
+        PdfUtil.responsePdf(response, data, service.getName() + ".pdf");
     }
 }
