@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Quotation</title>
+    <style>
+        .utext p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quotation</h1>
+    <p th:text="${service.name}"></p>
+    <div class="utext" th:utext="${service.information}"></div>
+</body>
+</html>
