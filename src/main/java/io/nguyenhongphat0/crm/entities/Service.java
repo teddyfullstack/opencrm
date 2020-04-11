@@ -10,10 +10,12 @@ public class Service {
     @GeneratedValue
     private Long id;
     private String name;
+    @Lob
     private String information;
     private Integer type;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private LocalDateTime releaseDate;
     private boolean disabled;
 
     @ManyToOne
@@ -88,6 +90,14 @@ public class Service {
 
     public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public LocalDateTime getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDateTime releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public boolean isDisabled() {

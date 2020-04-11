@@ -33,7 +33,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a class="text-fiord-blue" th:href="@{'/service/' + ${id}}" th:text="${service.name}"></a>
+                            <a class="text-fiord-blue" th:href="@{'/service/' + ${service.id}}" th:text="${service.name}"></a>
                         </h5>
                         <p class="card-text d-inline-block mb-3">Created at <span
                                 th:text="${{service.createdDate}}"></span></p>

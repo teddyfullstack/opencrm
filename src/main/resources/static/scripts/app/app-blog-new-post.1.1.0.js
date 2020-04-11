@@ -11,7 +11,7 @@
 
     var toolbarOptions = [
       [{ 'header': [1, 2, 3, 4, 5, false] }],
-      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['bold', 'italic', 'link', 'image', 'underline', 'strike'],        // toggled buttons
       ['blockquote', 'code-block'],
       [{ 'header': 1 }, { 'header': 2 }],               // custom button values
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -20,7 +20,7 @@
     ];
 
     // Init the Quill RTE
-    var quill = new Quill('#editor-container', {
+    window.quill = new Quill('.quill-editor', {
       modules: {
         toolbar: toolbarOptions
       },
@@ -28,5 +28,16 @@
       theme: 'snow'
     });
 
+    $("form.quill-parents").on("submit",function() {
+      var content = quill.container.firstElementChild;
+      var html = content.innerHTML;
+      var text = content.innerText;
+      if (text.trim()) {
+        $("<input />").attr("type", "hidden")
+            .attr("name", $('.quill-editor').attr('name'))
+            .attr("value", html)
+            .appendTo(this);
+      }
+    });
   });
 })(jQuery);

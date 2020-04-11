@@ -13,7 +13,6 @@ public class ServiceItem {
     private String name;
     private String description;
     private Double price;
-    private Long quantity;
 
     @ManyToOne
     private Service service;
@@ -48,14 +47,6 @@ public class ServiceItem {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
     }
 
     public Service getService() {

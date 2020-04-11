@@ -42,7 +42,6 @@ public class CustomerController {
         return "customer/detail";
     }
 
-
     @PostMapping("/{id}/createService")
     public RedirectView createService(@PathVariable long id, Service service) {
         Customer customer = entityManager.getReference(Customer.class, id);

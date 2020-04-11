@@ -10,6 +10,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @Lob
     private String information;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
