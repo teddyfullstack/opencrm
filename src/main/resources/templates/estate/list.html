@@ -18,7 +18,7 @@
     <div class="row">
         <div th:each="estate : ${estates}" class="col-12 mb-3">
             <div class="card card-small card-post card-post--aside card-post--1">
-                <div class="card-post__image" th:style="'background-image: url(https://gradientjoy.com/300x200?' + ${estate.id} + ')'">
+                <div class="card-post__image" th:style="${estate.pictures.empty} ? 'background-image: url(https://gradientjoy.com/300x200?' + ${estate.id} + ')' : 'background-image: url(data:image;base64,' + ${estate.pictures[0].base64} + ')'">
                     <a href="#" class="card-post__category badge badge-pill badge-info">Travel</a>
                     <div class="card-post__author d-flex">
                         <a href="#" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('images/avatars/0.jpg');">Written by Anna Ken</a>

@@ -1,16 +1,17 @@
 package io.nguyenhongphat0.crm.controllers;
 
-import io.nguyenhongphat0.crm.entities.Customer;
 import io.nguyenhongphat0.crm.entities.Estate;
+import io.nguyenhongphat0.crm.entities.Resource;
 import io.nguyenhongphat0.crm.repositories.EstateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.io.IOException;
+import java.util.Base64;
 
 @Controller
 @RequestMapping("/estate")
@@ -59,5 +60,25 @@ public class EstateController {
         Long estateId = Long.parseLong(id);
         estateRepository.deleteById(estateId);
         return new RedirectView("/estate");
+    }
+
+    @PostMapping("/{id}/uploadPictures")
+    public RedirectView uploadPictures(@PathVariable long id, @RequestParam MultipartFile[] pictures) throws IOException {
+        Estate estate = estateRepository.findById(id);
+        for (MultipartFile picture: pictures) {
+            String base64 = Base64.getEncoder().encodeToString(picture.getBytes());
+            Resource resource = new Resource(base64);
+            estate.getPictures().add(resource);
+        }
+        estateRepository.save(estate);
+        return new RedirectView("/estate/" + id);
+    }
+
+    @RequestMapping("/{id}/clearPictures")
+    public RedirectView clearPictures(@PathVariable long id) {
+        Estate estate = estateRepository.findById(id);
+        estate.getPictures().clear();
+        estateRepository.save(estate);
+        return new RedirectView("/estate/" + id);
     }
 }

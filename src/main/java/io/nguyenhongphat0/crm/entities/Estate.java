@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Estate {
@@ -130,5 +131,16 @@ public class Estate {
 
     public void setBuiltDate(LocalDate builtDate) {
         this.builtDate = builtDate;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resource> pictures;
+
+    public List<Resource> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Resource> pictures) {
+        this.pictures = pictures;
     }
 }

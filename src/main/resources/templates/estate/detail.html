@@ -78,17 +78,30 @@
         </div>
         <div class="col-12 mb-3">
             <div class="card">
-                <div class="card-header border-bottom border-top">Pictures</div>
-                <div class="card-body">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Estate picture</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="picture" id="picture">
-                            <label class="custom-file-label" for="picture">Choose file</label>
+                <div class="card-header border-bottom">Pictures</div>
+                <div th:if="${!estate.pictures.empty}" class="card-body border-bottom">
+                    <div class="row">
+                        <div th:each="picture : ${estate.pictures}" class="col-12 col-sm-6 col-md-4 col-lg-3 my-2">
+                            <img th:src="'data:image;base64,' + ${picture.base64}" class="rounded w-100">
                         </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <form method="post" th:action="@{'/estate/' + ${estate.id} + '/uploadPictures'}" enctype="multipart/form-data">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Estate picture</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="pictures" id="pictures" multiple>
+                                <label class="custom-file-label" for="pictures">Choose file</label>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <a th:href="@{'/estate/' + ${estate.id} + '/clearPictures'}" class="btn btn-danger">Clear All</a>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
