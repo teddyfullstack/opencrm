@@ -47,6 +47,6 @@ public class CustomerController {
         Customer customer = entityManager.getReference(Customer.class, id);
         service.setCustomer(customer);
         serviceRepository.save(service);
-        return  new RedirectView("/customer/" + id);
+        return new RedirectView("/customer/" + id);
     }
 }

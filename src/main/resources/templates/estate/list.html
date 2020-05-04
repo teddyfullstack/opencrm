@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Estate Management</title>
+</head>
+<body>
+<section>
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-6 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Estate Management</span>
+            <h3 class="page-title">All estate</h3>
+        </div>
+        <div class="col-12 col-sm-6 text-center text-sm-right mb-0">
+            <a href="/estate/create" class="btn btn-danger">New Estate</a>
+        </div>
+    </div>
+    <div class="row">
+        <div th:each="estate : ${estates}" class="col-12 mb-3">
+            <div class="card card-small card-post card-post--aside card-post--1">
+                <div class="card-post__image" th:style="'background-image: url(https://gradientjoy.com/300x200?' + ${estate.id} + ')'">
+                    <a href="#" class="card-post__category badge badge-pill badge-info">Travel</a>
+                    <div class="card-post__author d-flex">
+                        <a href="#" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('images/avatars/0.jpg');">Written by Anna Ken</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="text-fiord-blue" th:href="@{'/estate/' + ${estate.id}}" th:text="${estate.address}"></a>
+                    </h5>
+                    <p class="card-text d-inline-block mb-3" th:text="${estate.description}"></p>
+                    <p class="text-muted" th:text="${{estate.builtDate}}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
