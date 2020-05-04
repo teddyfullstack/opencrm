@@ -3,6 +3,7 @@ package io.nguyenhongphat0.crm.entities;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -19,7 +20,9 @@ public class Estate {
         this.id = id;
     }
 
+    @NotBlank
     private String address;
+    private String type;
     private String description;
     @Lob
     private String mapUrl;
@@ -39,6 +42,14 @@ public class Estate {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDescription() {

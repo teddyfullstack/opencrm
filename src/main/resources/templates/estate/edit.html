@@ -7,12 +7,12 @@
 <body>
 <section>
     <div class="page-header row no-gutters py-4">
-        <div class="col-12 col-sm-6 text-center text-sm-left mb-0">
+        <div class="col-12 text-center text-sm-left mb-0">
             <div th:if="${estate}">
                 <span class="text-uppercase page-subtitle">Edit estate</span>
-                <h3 class="page-title" th:text="${estate.name}"></h3>
+                <h3 class="page-title" th:text="${estate.address}"></h3>
             </div>
-            <div th:else>
+            <div th:unless="${estate}">
                 <h3 class="page-title">New estate</h3>
                 <span class="text-uppercase page-subtitle">Fill in information about the new estate!</span>
             </div>
@@ -21,24 +21,25 @@
     <div class="row">
         <div class="col">
             <div class="card card-small mb-4">
-                <form method="post" th:action="${estate == null ? '/estate/create' : '/estate/update' }">
+                <form method="post">
                     <div class="card-header border-bottom">Basic information</div>
                     <div class="card-body">
                     <strong class="text-muted d-block mb-2">Address</strong>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="address">
+                        <input th:if="${estate}" type="hidden" name="id" th:value="${estate.id}">
+                        <input type="text" class="form-control" name="address" th:value="${estate?.address}">
                     </div>
                     <strong class="text-muted d-block mb-2">Google map embed url</strong>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="mapUrl">
+                        <input type="text" class="form-control" name="mapUrl" th:value="${estate?.mapUrl}">
                     </div>
                     <strong class="text-muted d-block mb-2">Type</strong>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="type">
+                        <input type="text" class="form-control" name="type" th:value="${estate?.type}">
                     </div>
                     <strong class="text-muted d-block mb-2" placeholder="House, hotel, villa,...">Description</strong>
                     <div class="input-group mb-3">
-                        <textarea class="form-control" name="description"></textarea>
+                        <textarea class="form-control" name="description" th:text="${estate?.description}"></textarea>
                     </div>
                     </div>
                     <div class="card-header border-bottom border-top">Detail information</div>
@@ -48,7 +49,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="number" class="form-control" name="price" th:value="0">
+                            <input type="number" class="form-control" name="price" th:value="${estate?.price}">
                             <div class="input-group-append">
                                 <span class="input-group-text">USD</span>
                             </div>
@@ -58,7 +59,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="number" class="form-control" name="rent" th:value="0">
+                            <input type="number" class="form-control" name="rent" th:value="${estate?.rent}">
                             <div class="input-group-append">
                                 <span class="input-group-text">USD</span>
                             </div>
@@ -68,7 +69,7 @@
                             <div class="col">
                                 <strong class="text-muted d-block mb-2">X</strong>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" name="x" th:value="0">
+                                    <input type="number" class="form-control" name="x" th:value="${estate?.x}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">m</span>
                                     </div>
@@ -77,7 +78,7 @@
                             <div class="col">
                                 <strong class="text-muted d-block mb-2">Y</strong>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" name="y" th:value="0">
+                                    <input type="number" class="form-control" name="y" th:value="${estate?.y}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">m</span>
                                     </div>
@@ -88,7 +89,7 @@
                             <div class="col">
                                 <strong class="text-muted d-block mb-2">Capacity</strong>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" name="capacity" th:value="0">
+                                    <input type="number" class="form-control" name="capacity" th:value="${estate?.capacity}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">people</span>
                                     </div>
@@ -97,7 +98,7 @@
                             <div class="col">
                                 <strong class="text-muted d-block mb-2">Rooms</strong>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" name="rooms" th:value="0">
+                                    <input type="number" class="form-control" name="rooms" th:value="${estate?.rooms}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">rooms</span>
                                     </div>
@@ -106,7 +107,7 @@
                             <div class="col">
                                 <strong class="text-muted d-block mb-2">Toilets</strong>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" name="toilets" th:value="0">
+                                    <input type="number" class="form-control" name="toilets" th:value="${estate?.toilets}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">toilets</span>
                                     </div>
@@ -115,19 +116,7 @@
                         </div>
                         <strong class="text-muted d-block mb-2">Built date</strong>
                         <div class="input-group mb-3">
-                            <input type="date" class="form-control" name="builtDate">
-                        </div>
-                    </div>
-                    <div class="card-header border-bottom border-top">Pictures</div>
-                    <div class="card-body">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Estate picture</span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="picture" id="picture">
-                                <label class="custom-file-label" for="picture">Choose file</label>
-                            </div>
+                            <input type="date" class="form-control" name="builtDate" th:value="${estate?.builtDate}">
                         </div>
                     </div>
                     <div class="card-footer border-top text-right">

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Estate Detail: ' + ${estate.address}"></title>
+</head>
+<body>
+<section>
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-md-10 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Estate Detail</span>
+            <h3 class="page-title" th:text="${estate.address}"></h3>
+        </div>
+        <div class="col-12 col-md-2 text-center text-sm-right mb-0">
+            <a th:href="@{'/estate/edit/' + ${estate.id}}" class="btn btn-warning">Edit information</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+            <div class="card card-small card-post card-post--aside card-post--1">
+                <div class="card-body">
+                    <p class="card-text d-inline-block mb-3" th:text="${estate.description}"></p>
+                    <h5 class="card-title">Detail Information</h5>
+                    <ul class="list-group list-group-small list-group-flush">
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Estate value</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray" th:text="${estate.price}">19,291</span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Rent price</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray" th:text="${estate.rent}">11,201</span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Size X</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray"
+                                  th:text="${estate.x}">9,291</span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Size Y</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray"
+                                  th:text="${estate.y}">8,281</span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Capacity</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray"
+                                  th:text="${estate.capacity}">7,128</span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Rooms</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray" th:text="${estate.rooms}">6,218</span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Toilets</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray"
+                                  th:text="${estate.toilets}">1,218</span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <span class="text-semibold text-fiord-blue">Built date</span>
+                            <span class="ml-auto text-right text-semibold text-reagent-gray"
+                                  th:text="${{estate.builtDate}}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+            <div class="card map-card card-small card-post card-post--aside card-post--1"
+                 th:utext="${estate.mapUrl}"></div>
+            <style>
+                .map-card {
+                    overflow: hidden;
+                }
+
+                .map-card iframe {
+                    width: 100%;
+                }
+            </style>
+        </div>
+        <div class="col-12 mb-3">
+            <div class="card">
+                <div class="card-header border-bottom border-top">Pictures</div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Estate picture</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="picture" id="picture">
+                            <label class="custom-file-label" for="picture">Choose file</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-3">
+            <div class="card">
+                <div class="card-header border-bottom">Rental Management</div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-3">
+            <div class="bg-danger rounded text-white p-3">
+                <div class="row">
+                    <div class="col-md-10">Are you sure you want to delete this estate? This cannot be undone!</div>
+                    <div class="col-md-2 text-right">
+                        <form method="post" th:action="@{/estate/delete}">
+                            <input type="hidden" name="id" th:value="${estate.id}">
+                            <input type="submit" class="btn btn-light text-dark" th:value="Delete"></input>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
