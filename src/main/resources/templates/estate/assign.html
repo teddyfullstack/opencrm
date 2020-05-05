@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Customer to Rent</title>
+</head>
+<body>
+<section>
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-md-9 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Select customers to assign to this rent</span>
+            <h3 class="page-title" th:text="${estate.address}"></h3>
+        </div>
+        <div class="col-12 col-md-3 text-center text-sm-right mb-0">
+            <a class="btn btn-dark" href="/customer">Add new customer</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form method="post">
+                <div class="card card-small mb-4">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">Available Customers</h6>
+                    </div>
+                    <div class="card-body p-0 pb-3 text-center">
+                        <table class="table mb-0">
+                            <thead class="bg-light">
+                            <tr>
+                                <th scope="col" class="border-0">#</th>
+                                <th scope="col" class="border-0">Name</th>
+                                <th scope="col" class="border-0">Last Active</th>
+                                <th scope="col" class="border-0"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="customer : ${customers}">
+                                <td>
+                                    <a th:href="@{'/customer/' + ${customer.id}}" target="_blank"
+                                       th:text="${customer.id}"></a>
+                                </td>
+                                <td th:text="${customer.name}"></td>
+                                <td th:text="${{customer.updatedDate}}"></td>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"
+                                               th:id="'customer-' + ${customer.id}" name="customers" th:value="${customer.id}">
+                                        <label class="custom-control-label"
+                                               th:for="'customer-' + ${customer.id}"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer border-top">
+                        <div class="row">
+                            <div class="col">
+                                <strong class="text-muted d-block mb-2">Rent date (leave blank for today)</strong>
+                                <div class="input-group mb-3">
+                                    <input type="date" class="form-control" name="rentDate">
+                                </div>
+                            </div>
+                            <div class="col text-right">
+                                <button type="submit" class="btn btn-primary mt-4"><i class="material-icons">check</i> Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

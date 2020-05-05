@@ -105,11 +105,46 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 mb-3">
+        <div class="col-6 mb-3">
             <div class="card">
-                <div class="card-header border-bottom">Rental Management</div>
-                <div class="card-body">
-
+                <div class="card-header border-bottom">
+                    <div class="row">
+                        <div class="col">Rental Management</div>
+                        <div class="col text-right"><a th:href="@{'/estate/' + ${estate.id} + '/assign'}" class="btn btn-primary">Assign Customer</a></div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div th:each="rent : ${estate.rents}" th:if="${rent.endDate == null}" th:with="days=${rent.startDate.until(now).getDays()},total=${rent.price * days / 30}" class="blog-comments__item d-flex p-3">
+                        <div class="blog-comments__avatar mr-3">
+                            <img th:src="@{'https://gradientjoy.com/300x200?' + ${rent.customer.id}}" alt="User avatar">
+                        </div>
+                        <div class="blog-comments__content">
+                            <div class="blog-comments__meta text-muted">
+                                <a class="text-secondary" href="#" th:text="${rent.customer.name}"></a> <span class="text-muted">– <span th:text="${days}"></span> days ago</span>
+                            </div>
+                            <p th:if="${total > rent.paid}" class="m-0 my-1 mb-2 text-muted">Payable: $<span th:text="${#numbers.formatDecimal(total - rent.paid, 1, 3)}"></span></p>
+                            <p th:unless="${total > rent.paid}" class="m-0 my-1 mb-2 text-muted"><span class="text-success"><i class="material-icons">check</i></span> All paid</p>
+                            <div class="blog-comments__actions my-2">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-white">
+                                        <span class="text-light"><i class="material-icons">local_atm</i></span> Monthly Price: $<span th:text="${rent.price}"></span> </button>
+                                    <button type="button" class="btn btn-white">
+                                        <span class="text-danger"><i class="material-icons">clear</i></span> Total Rent: $<span th:text="${#numbers.formatDecimal(total, 1, 3)}"></span> </button>
+                                    <button type="button" class="btn btn-white">
+                                        <span class="text-success"><i class="material-icons">check</i></span> Paid: $<span th:text="${rent.paid}"></span> </button>
+                                </div>
+                            </div>
+                            <form method="post" action="/estate/pay">
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" name="rentId" th:value="${rent.id}">
+                                    <input type="number" step="0.001" class="form-control" placeholder="Pay amount" name="amount" th:value="0">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">Pay</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

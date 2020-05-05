@@ -36,6 +36,8 @@ public class Estate {
     private int toilets;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate builtDate;
+    @OneToMany(mappedBy = "estate")
+    private List<Rent> rents;
 
     public String getAddress() {
         return address;
@@ -142,5 +144,13 @@ public class Estate {
 
     public void setPictures(List<Resource> pictures) {
         this.pictures = pictures;
+    }
+
+    public List<Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(List<Rent> rents) {
+        this.rents = rents;
     }
 }

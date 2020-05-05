@@ -18,6 +18,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Service> services;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Rent> rents;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +72,13 @@ public class Customer {
 
     public void setServices(List<Service> services) {
         this.services = services;
+    }
+
+    public List<Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(List<Rent> rents) {
+        this.rents = rents;
     }
 }
