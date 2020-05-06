@@ -51,7 +51,7 @@ public class RentUtil {
 					history.get(i).add(new ArrayList<Customer>());
 					LocalDate firstDateOfMonth = LocalDate.of(this.years.get(i), this.months.get(j), 1);
 					int daysInMonth = firstDateOfMonth.getMonth().length(firstDateOfMonth.isLeapYear());
-					LocalDate lastDateOfMonth = LocalDate.of(this.years.get(i), this.months.get(j), daysInMonth - 1);
+					LocalDate lastDateOfMonth = LocalDate.of(this.years.get(i), this.months.get(j), daysInMonth);
 					for (Rent rent : rents) {
 						LocalDate startDate = rent.getStartDate();
 						LocalDate endDate = rent.getEndDate();

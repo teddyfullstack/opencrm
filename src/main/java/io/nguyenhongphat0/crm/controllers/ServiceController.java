@@ -32,6 +32,12 @@ public class ServiceController {
     @Autowired ServiceRepository serviceRepository;
     @Autowired ServiceItemRepository serviceItemRepository;
 
+    @GetMapping
+    public String index(Model model) {
+        model.addAttribute("services", serviceRepository.findAll());
+        return "service/list";
+    }
+
     @GetMapping("/{id}")
     public String detail(@PathVariable long id, Model model) {
         Service service = serviceRepository.findById(id);

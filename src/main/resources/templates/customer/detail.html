@@ -47,35 +47,33 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="row" id="services">
 						<div th:each="service : ${customer.services}"
 							class="col-lg-3 col-md-4 col-sm-12 mb-4">
-							<div class="card card-small card-post card-post--1">
-								<div class="card-post__image"
-									th:style="'background-image: url(https://gradientjoy.com/300x200?' + ${service.id} + ')'">
-									<span class="card-post__category badge badge-pill badge-dark"
-										th:switch="${service.type}"> <span th:case="0">One
-											time</span> <span th:case="1">Concurrent</span>
-									</span>
-									<div class="card-post__author d-flex">
-										<a th:if="${customer.avatar != null}" href="#"
-											class="card-post__author-avatar card-post__author-avatar--small"
-									th:style="'background-image: url(data:image;base64,' + ${customer.avatar.base64} + ')'">Written
-											by Anna Kunis</a>
-									</div>
-								</div>
+							<div class="card card-small card-post mb-4">
 								<div class="card-body">
-									<h5 class="card-title">
-										<a class="text-fiord-blue"
-											th:href="@{'/service/' + ${service.id}}"
-											th:text="${service.name}"></a>
-									</h5>
-									<p class="card-text d-inline-block mb-3">
-										Created at <span th:text="${{service.createdDate}}"></span>
-									</p>
-									<span class="text-muted">Last modified: <span
-										th:text="${{service.updatedDate}}"></span></span>
+									<a class="text-fiord-blue" th:href="@{'/service/' + ${service.id}}"><h5 class="card-title" th:text="${service.name}"></h5></a>
+									<div class="utext" th:utext="${service.information}"></div>
+									<p class="card-text">Last modified: <span th:text="${{service.updatedDate}}"></span></span></p>
+								</div>
+								<div class="card-footer border-top d-flex">
+									<div class="card-post__author d-flex">
+										<a th:if="${service.customer.avatar != null}" th:href="@{'/customer/' + ${service.customer.id}}" class="card-post__author-avatar card-post__author-avatar--small" th:style="'background-image: url(data:image;base64,' + ${service.customer.avatar.base64} + ')'"></a>
+										<div class="d-flex flex-column justify-content-center ml-3">
+											<span class="card-post__author-name" th:text="${service.customer.name}"></span>
+											<small class="text-muted">Created at: <span th:text="${{service.createdDate}}"></span></small>
+										</div>
+									</div>
+									<div class="my-auto ml-auto">
+										<button class="btn btn-sm btn-white">
+											<i class="far fa-bookmark mr-1"></i>
+											<span th:switch="${service.type}">
+												<span th:case="0">One time</span>
+												<span th:case="1">Concurrent</span>
+											</span>
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
