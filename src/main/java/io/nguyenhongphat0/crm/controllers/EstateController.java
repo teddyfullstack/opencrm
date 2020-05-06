@@ -74,11 +74,10 @@ public class EstateController {
     }
 
     @PostMapping("/{id}/uploadPictures")
-    public RedirectView uploadPictures(@PathVariable long id, @RequestParam MultipartFile[] pictures) throws IOException {
+    public RedirectView uploadPictures(@PathVariable long id, @RequestParam MultipartFile[] pictures) {
         Estate estate = estateRepository.findById(id);
         for (MultipartFile picture: pictures) {
-            String base64 = Base64.getEncoder().encodeToString(picture.getBytes());
-            Resource resource = new Resource(base64);
+            Resource resource = new Resource(picture);
             estate.getPictures().add(resource);
         }
         estateRepository.save(estate);

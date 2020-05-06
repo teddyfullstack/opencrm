@@ -14,8 +14,11 @@ public class Customer {
     private String information;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Resource avatar;
 
-    @OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer")
     private List<Service> services;
 
     @OneToMany(mappedBy = "customer")
@@ -81,4 +84,12 @@ public class Customer {
     public void setRents(List<Rent> rents) {
         this.rents = rents;
     }
+
+    public Resource getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Resource avatar) {
+		this.avatar = avatar;
+	}
 }

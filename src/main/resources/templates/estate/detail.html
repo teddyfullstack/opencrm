@@ -116,7 +116,7 @@
                 <div class="card-body p-0">
                     <div th:each="rent : ${estate.rents}" th:if="${rent.endDate == null}" th:with="days=${rent.startDate.until(now).getDays()},total=${rent.price * days / 30}" class="blog-comments__item d-flex p-3">
                         <div class="blog-comments__avatar mr-3">
-                            <img th:src="@{'https://gradientjoy.com/300x200?' + ${rent.customer.id}}" alt="User avatar">
+                            <img th:if="${rent.customer.avatar != null}" th:src="${'data:image;base64,' + rent.customer.avatar.base64}" alt="User avatar">
                         </div>
                         <div class="blog-comments__content">
                             <div class="blog-comments__meta text-muted">

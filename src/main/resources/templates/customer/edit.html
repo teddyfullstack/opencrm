@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+	th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
+<head>
+<meta charset="UTF-8">
+<title th:text="'Edit ' + ${customer.name} + ' information'"></title>
+</head>
+<body>
+	<section>
+		<div class="page-header row no-gutters py-4">
+			<div class="col-12 col-sm-6 text-center text-sm-left mb-0">
+				<span class="text-uppercase page-subtitle">Update customer
+					information</span>
+				<h3 class="page-title" th:text="${customer.name}"></h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<form class="quill-parents add-new-post"
+					th:action="@{'/customer/' + ${customer.id} + '/updateInformation'}"
+					method="post" enctype="multipart/form-data">
+					<div class="card card-small mb-3">
+						<div class="card-body">
+							<input name="name" class="form-control form-control-lg mb-3"
+								type="text" th:value="${customer.name}">
+							<div name="information" class="quill-editor add-new-post__editor"
+								th:utext="${customer.information}"></div>
+                            <div class="custom-file mt-3">
+                                <input type="file" class="custom-file-input" name="picture" id="picture">
+                                <label class="custom-file-label" for="picture">Choose file</label>
+                            </div>
+						</div>
+						<div class="card-footer text-right border-top">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

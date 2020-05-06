@@ -28,10 +28,11 @@
                     <div class="card-header border-bottom">
                         <h6 class="m-0">Active Users</h6>
                     </div>
-                    <div class="card-body p-0 pb-3 text-center">
+                    <div class="card-body p-0 text-center">
                         <table class="table mb-0">
                             <thead class="bg-light">
                             <tr>
+                                <th scope="col" class="border-0"></th>
                                 <th scope="col" class="border-0">#</th>
                                 <th scope="col" class="border-0">Name</th>
                                 <th scope="col" class="border-0">Last Active</th>
@@ -40,6 +41,9 @@
                             </thead>
                             <tbody>
                             <tr th:each="customer : ${customers}">
+                                <td>
+                                	<img th:if="${customer.avatar != null}" class="rounded-circle" width="25" height="25" th:src="'data:image;base64,' + ${customer.avatar.base64}">
+								</td>
                                 <td th:text="${customer.id}"></td>
                                 <td th:text="${customer.name}"></td>
                                 <td th:text="${{customer.updatedDate}}"></td>

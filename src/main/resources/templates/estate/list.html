@@ -21,7 +21,7 @@
                 <div class="card-post__image" th:style="${estate.pictures.empty} ? 'background-image: url(https://gradientjoy.com/300x200?' + ${estate.id} + ')' : 'background-image: url(data:image;base64,' + ${estate.pictures[0].base64} + ')'">
                     <a href="#" class="card-post__category badge badge-pill badge-info">Travel</a>
                     <div class="card-post__author d-flex">
-                        <a href="#" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('images/avatars/0.jpg');">Written by Anna Ken</a>
+                        <a th:each="rent : ${estate.rents}" th:if="${rent.endDate == null && rent.customer.avatar != null}" th:href="@{'/customer/' + ${rent.customer.id}}" target="_blank" class="card-post__author-avatar card-post__author-avatar--small" th:style="'background-image: url(data:image;base64,' + ${rent.customer.avatar.base64} + ');'" th:title="${rent.customer.name}"></a>
                     </div>
                 </div>
                 <div class="card-body">
