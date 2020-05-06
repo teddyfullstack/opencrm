@@ -4,6 +4,8 @@ import io.nguyenhongphat0.crm.entities.*;
 import io.nguyenhongphat0.crm.repositories.CustomerRepository;
 import io.nguyenhongphat0.crm.repositories.EstateRepository;
 import io.nguyenhongphat0.crm.repositories.RentRepository;
+import io.nguyenhongphat0.crm.utils.RentUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -63,6 +65,8 @@ public class EstateController {
         Estate estate = estateRepository.findById(id);
         model.addAttribute("estate", estate);
         model.addAttribute("now", LocalDate.now());
+        RentUtil.EstateRentHistory history = new RentUtil.EstateRentHistory(estate); 
+        model.addAttribute("history", history);
         return "estate/detail";
     }
 

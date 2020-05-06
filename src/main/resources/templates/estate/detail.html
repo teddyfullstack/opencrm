@@ -105,15 +105,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <div class="card">
-                <div class="card-header border-bottom">
-                    <div class="row">
-                        <div class="col">Rental Management</div>
-                        <div class="col text-right"><a th:href="@{'/estate/' + ${estate.id} + '/assign'}" class="btn btn-primary">Assign Customer</a></div>
-                    </div>
-                </div>
-                <div class="card-body p-0">
+                <div class="card-header border-bottom">Rental Management</div>
+                <div class="card-body p-0 table-responsive">
                     <div th:each="rent : ${estate.rents}" th:if="${rent.endDate == null}" th:with="days=${rent.startDate.until(now).getDays()},total=${rent.price * days / 30}" class="blog-comments__item d-flex p-3">
                         <div class="blog-comments__avatar mr-3">
                             <img th:if="${rent.customer.avatar != null}" th:src="${'data:image;base64,' + rent.customer.avatar.base64}" alt="User avatar">
@@ -146,8 +141,44 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-footer border-top">
+                    <div class="row">
+                        <div class="col text-right"><a th:href="@{'/estate/' + ${estate.id} + '/assign'}" class="btn btn-primary">Assign Customer</a></div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-12 col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header border-bottom">Rent History</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+	                        <div class="table-responsive">
+	                        	<table class="table table-bordered mb-0 text-center">
+									<thead class="bg-light">
+										<tr>
+											<th class="border-bottom-0" scope="col"></th>
+											<th th:each="month : ${history.months}" scope="col" class="border-bottom-0" th:text="${month}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="year : ${history.years}">
+											<th th:text="${year}" class="bg-light"></th>
+											<td th:each="month : ${history.months}" th:with="customers=${history.get(year, month)}">
+												<a th:each="customer : ${customers}" th:if="${customer.avatar != null}" th:href="@{'/customer/' + ${customer.id}}" target="_blank">
+													<img class="rounded-circle" width="25" height="25" th:src="'data:image;base64,' + ${customer.avatar.base64}" th:title="${customer.name}">
+												</a>
+											</td>
+										</tr>
+									</tbody>
+			                    </table>
+		                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
         <div class="col-12 mb-3">
             <div class="bg-danger rounded text-white p-3">
                 <div class="row">
