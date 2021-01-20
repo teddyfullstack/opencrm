@@ -27,10 +27,14 @@ import java.util.Map;
 @Controller
 @RequestMapping("/service")
 public class ServiceController {
-    @Autowired SpringTemplateEngine springTemplateEngine;
-    @PersistenceContext EntityManager entityManager;
-    @Autowired ServiceRepository serviceRepository;
-    @Autowired ServiceItemRepository serviceItemRepository;
+    @Autowired
+    SpringTemplateEngine springTemplateEngine;
+    @PersistenceContext
+    EntityManager entityManager;
+    @Autowired
+    ServiceRepository serviceRepository;
+    @Autowired
+    ServiceItemRepository serviceItemRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -91,11 +95,11 @@ public class ServiceController {
             total += item.getPrice();
         }
         final double tax = 0.08;
-        final double grandTotal = total + total*tax;
+        final double grandTotal = total + total * tax;
         model.put("tax", tax);
         model.put("total", total);
         model.put("grandTotal", grandTotal);
-        byte[] data = PdfUtil.generatePdf(springTemplateEngine, "pdf/quotation", model);
+        byte[] data = PdfUtil.generatePdf(springTemplateEngine, "pdf/invoice", model);
         PdfUtil.responsePdf(response, data, service.getName() + ".pdf");
     }
 }

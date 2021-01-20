@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en"
-	th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
+<html lang="en" th:replace="layouts/admin :: layout(~{::title}, ~{::section})">
+
 <head>
-<meta charset="UTF-8">
-<title th:text="${customer.name + ' customer detail'}"></title>
+	<meta charset="UTF-8">
+	<title th:text="${customer.name + ' customer detail'}"></title>
 </head>
+
 <body>
 	<section>
 		<div class="page-header row no-gutters py-4">
 			<div class="col-12 col-sm-6 text-center text-sm-left mb-0">
 				<span class="text-uppercase page-title" th:text="${customer.name}"></span>
-				<a th:href="@{'/customer/' + ${customer.id} + '/edit'}"
-					class="page-subtitle">Update Information</a> <a href="#services"
-					class="page-subtitle">Services</a> <a href="#resources"
-					class="page-subtitle">Resources</a> <a href="#settings"
-					class="page-subtitle">Settings</a>
+				<a th:href="@{'/customer/' + ${customer.id} + '/edit'}" class="page-subtitle">Update Information</a> <a
+					href="#services" class="page-subtitle">Services</a> <a href="#resources"
+					class="page-subtitle">Resources</a> <a href="#settings" class="page-subtitle">Settings</a>
 			</div>
 		</div>
 		<div class="tab-content-area">
@@ -23,12 +22,11 @@
 					<div class="card card-small mb-4 pt-3">
 						<div class="card-header border-bottom text-center">
 							<div class="mb-3 mx-auto">
-								<img th:if="${customer.avatar != null}" class="rounded-circle"
-									width="100" height="100"
-									th:src="'data:image;base64,' + ${customer.avatar.base64}"
-									alt="User Avatar"> <a th:if="${customer.avatar == null}"
-									th:href="@{'/customer/' + ${customer.id} + '/edit'}"
-									class="btn btn-primary">Upload Avatar</a>
+								<img th:if="${customer.avatar != null}" class="rounded-circle" width="100" height="100"
+									th:src="'data:image;base64,' + ${customer.avatar.base64}" alt="User Avatar"> <a
+									th:if="${customer.avatar == null}"
+									th:href="@{'/customer/' + ${customer.id} + '/edit'}" class="btn btn-primary">Upload
+									Avatar</a>
 							</div>
 							<h4 class="mb-0" th:text="${customer.name}"></h4>
 						</div>
@@ -41,28 +39,39 @@
 										th:text="${customer.updatedDate}"></span>
 								</div>
 							</li>
-							<li class="list-group-item p-4"><strong
-								class="text-muted d-block mb-2">Information</strong>
-								<div class="utext" th:utext="${customer.information}"></div></li>
+							<li class="list-group-item p-4"><strong class="text-muted d-block mb-2">Information</strong>
+								<div class="utext" th:utext="${customer.information}"></div>
+							</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-12">
 					<div class="row" id="services">
-						<div th:each="service : ${customer.services}"
-							class="col-lg-3 col-md-4 col-sm-12 mb-4">
+						<div th:each="service : ${customer.services}" class="col-lg-3 col-md-4 col-sm-12 mb-4">
 							<div class="card card-small card-post mb-4">
 								<div class="card-body">
-									<a class="text-fiord-blue" th:href="@{'/service/' + ${service.id}}"><h5 class="card-title" th:text="${service.name}"></h5></a>
+									<a class="text-fiord-blue" th:href="@{'/service/' + ${service.id}}">
+										<h5 class="card-title" th:text="${service.name}"></h5>
+									</a>
 									<div class="utext" th:utext="${service.information}"></div>
-									<p class="card-text">Last modified: <span th:text="${{service.updatedDate}}"></span></span></p>
+									<p class="card-text">
+										<a th:href="@{'/service/' + ${service.id} + '/export'}"
+											class="btn btn-primary">Export</a>
+										<a th:href="@{'/customer/removeService/' + ${service.id}}"
+											class="btn btn-dark">Remove</a>
+									</p>
 								</div>
 								<div class="card-footer border-top d-flex">
 									<div class="card-post__author d-flex">
-										<a th:if="${service.customer.avatar != null}" th:href="@{'/customer/' + ${service.customer.id}}" class="card-post__author-avatar card-post__author-avatar--small" th:style="'background-image: url(data:image;base64,' + ${service.customer.avatar.base64} + ')'"></a>
+										<a th:if="${service.customer.avatar != null}"
+											th:href="@{'/customer/' + ${service.customer.id}}"
+											class="card-post__author-avatar card-post__author-avatar--small"
+											th:style="'background-image: url(data:image;base64,' + ${service.customer.avatar.base64} + ')'"></a>
 										<div class="d-flex flex-column justify-content-center ml-3">
-											<span class="card-post__author-name" th:text="${service.customer.name}"></span>
-											<small class="text-muted">Created at: <span th:text="${{service.createdDate}}"></span></small>
+											<span class="card-post__author-name"
+												th:text="${service.customer.name}"></span>
+											<small class="text-muted">Created at: <span
+													th:text="${{service.createdDate}}"></span></small>
 										</div>
 									</div>
 									<div class="my-auto ml-auto">
@@ -71,22 +80,51 @@
 											<span th:switch="${service.type}">
 												<span th:case="0">One time</span>
 												<span th:case="1">Concurrent</span>
+												<span th:case="2">Invoice</span>
 											</span>
 										</button>
 									</div>
 								</div>
 							</div>
 						</div>
+
 						<div class="col-lg-6 col-md-8 col-sm-12 mb-4">
+							<div class="card card-small card-post card-post--1">
+								<div class="card-body">
+									<h5 class="card-title">Create Weekly Invoice</h5>
+									<p class="card-text d-inline-block mb-3 text-muted">Generate invoice for this week
+									</p>
+									<form th:action="@{'/customer/' + ${customer.id} + '/generateWeeklyInvoice'}"
+										method="post">
+										<div class="form-row">
+											<div class="form-group col-md-8">
+												<textarea name="information" class="form-control"
+													placeholder="Work Detail" rows="5"></textarea>
+											</div>
+											<div class="form-group col-md-2">
+												<input name="hours" type="number" class="form-control"
+													placeholder="Hours" min="0" step="1" value="20">
+											</div>
+											<div class="form-group col-md-2">
+												<select name="rate" class="form-control">
+													<option value="5">$5</option>
+													<option selected value="10">$10</option>
+												</select>
+											</div>
+										</div>
+										<button class="btn btn-accent" type="submit">Create</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12 mb-4">
 							<div class="card card-small card-post card-post--1">
 								<div class="card-body">
 									<h5 class="card-title">Create new service</h5>
 									<p class="card-text d-inline-block mb-3 text-muted">Create
 										new service for this customer. Please enter the name and type
 										of the service:</p>
-									<form
-										th:action="@{'/customer/' + ${customer.id} + '/createService'}"
-										method="post">
+									<form th:action="@{'/customer/' + ${customer.id} + '/createService'}" method="post">
 										<div class="form-row">
 											<div class="form-group col-md-7">
 												<input name="name" type="text" class="form-control"
@@ -110,4 +148,5 @@
 		</div>
 	</section>
 </body>
+
 </html>

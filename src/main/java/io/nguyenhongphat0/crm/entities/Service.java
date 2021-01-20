@@ -17,6 +17,8 @@ public class Service {
     private LocalDateTime updatedDate;
     private LocalDateTime releaseDate;
     private boolean disabled;
+    private Integer hours;
+    private Double rate;
 
     @ManyToOne
     private Customer customer;
@@ -107,4 +109,25 @@ public class Service {
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
+
+    public boolean getDisabled() {
+        return this.disabled;
+    }
+
+    public Integer getHours() {
+        return this.hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
+    public Double getRate() {
+        return this.rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
 }
