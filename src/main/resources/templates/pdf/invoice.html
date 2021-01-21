@@ -10,7 +10,7 @@
         }
 
         .utext p {
-            margin: 0;
+            margin: 6px 0;
         }
 
         .bg-gray {
@@ -21,22 +21,18 @@
 
 <body>
     <table
-        style="width: 100%; font-family: Verdana, Arial, Helvetica, sans-serif; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+        style="width: 100%; font-family: Arial, Helvetica, sans-serif; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
         border="0" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
-                <td>
+                <td valign="top">
                     <img th:src="@{images/shards-dashboards-logo.svg}" alt="" height="100" />
-                    <h3 style="color: #000;"><span
-                            style="border-bottom: 3px solid gold; line-height: 1.2;">Quotation</span>
-                    </h3>
-                    <h1 style="color: #000;" th:text="${service.name}"></h1>
+                    <span style="color: #000; font-weight: bold;">ABC</span><br /><span>Company</span>
                 </td>
-                <td style="text-align: right; font-weight: bold; text-transform: uppercase; color: #999; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 85%;"
-                    valign="top" height="100">Company name<br />Company street and number<br />Company Town, State Zip
-                    Code<br />Country<br /><br /><strong
-                        style="font-weight: bold; color: #000;">Reporter</strong>:<br />Nguyen Hong
-                    Phat
+                <td style="text-align: right; font-weight: bold; text-transform: uppercase; color: #999; font-family: Arial, Helvetica, sans-serif; font-size: 90%;"
+                    valign="top" height="100">
+                    <h1 style=" color: #000; font-weight: lighter; font-size: 40px; margin-bottom: 0;">INVOICE</h1>
+                    <h2 style="font-weight: lighter;"># <span th:text=" ${dateHash}"></span></h2>
                 </td>
             </tr>
             <tr>
@@ -47,27 +43,30 @@
         </tbody>
     </table>
     <table
-        style="width: 100%; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 85%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 90%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
         border="0" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
                 <td style="vertical-align: top;" width="90%">
                     <table
-                        style="width: 100%; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 100%; word-break: break-all; color: #999;"
+                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; word-break: break-all; color: #999;"
                         border="0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
                                 <td style="height: 30px; font-size: 1px;" height="30">&nbsp;</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left; font-weight: bold;">Bill To</td>
+                                <td style="text-align: left;">Bill To:</td>
                             </tr>
                             <tr style="height: 10px; font-size: 1px;">
                                 <td style="height: 10px; font-size: 1px;" height="10">&nbsp;</td>
                             </tr>
                             <tr>
                                 <td valign="top">
-                                    <div class="utext" th:utext="${service.information}"></div>
+                                    <span style="color: #000; font-weight: bold;"
+                                        th:text="${service.customer.name}"></span><br />
+                                    <pre style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;"
+                                        class="utext" th:utext="${service.customer.information}"></pre>
                                 </td>
                             </tr>
                         </tbody>
@@ -78,53 +77,26 @@
                     <table style="width: 100%; font-size: 100%;" border="0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
-                                <td style="height: 30px; font-size: 1px;" height="30">&nbsp;</td>
+                                <td style="height: 30px; font-size: 1px;" height="30">
+                                    <div class="utext" th:utext="${service.information}"></div>
+                                </td>
                             </tr>
                             <tr>
-                                <td valign="top" width="30%">
-                                    <table
-                                        style="width: 100%; font-size: 100%; color: #999; word-break: break-all; height: 150px;"
-                                        border="0" cellspacing="0" cellpadding="20">
-                                        <tbody>
-                                            <tr>
-                                                <td class="bg-gray" valign="top" height="240"><strong
-                                                        style="font-weight: bold;">Invoice
-                                                        number:</strong> <br /><br /> <strong
-                                                        style="font-size: 150%; color: #ef4035;">#<span
-                                                            th:text="${service.id}"></span></strong><br /><br />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <td valign="top" width="10%">
+                                    &nbsp;
                                 </td>
-                                <td width="3%">&nbsp;</td>
-                                <td valign="top" width="32%">
+                                <td valign="top" width="50%">
                                     <table style="width: 100%; font-size: 100%; color: #999; word-break: break-all;"
-                                        border="0" cellspacing="0" cellpadding="20">
+                                        border="0" cellspacing="0" cellpadding="10" align="right">
                                         <tbody>
                                             <tr>
-                                                <td class="bg-gray" valign="top" height="240"><strong
-                                                        style="font-weight: bold;">Release
-                                                        date:</strong>:
-                                                    <br /><br /> <strong style="font-size: 150%; color: #00a6b6;"
-                                                        th:text="${{service.releaseDate}}"></strong><br /><br />
-                                                </td>
+                                                <td style="text-align: right;">Date:</td>
+                                                <td style="text-align: right; color: #000" th:text="${dateString}"></td>
                                             </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td width="3%">&nbsp;</td>
-                                <td valign="top" width="31%">
-                                    <table style="width: 100%; font-size: 100%; color: #999; word-break: break-all;"
-                                        border="0" cellspacing="0" cellpadding="20" align="right">
-                                        <tbody>
-                                            <tr>
-                                                <td class="bg-gray" valign="top" height="240"><strong
-                                                        style="font-weight: bold;">Payment
-                                                        Method</strong>:
-                                                    <br /><br /><strong style="font-size: 150%; color: #00ad69;">Cash /
-                                                        Visa</strong><br /><br />
-                                                </td>
+                                            <tr style="background-color: #eee; font-weight: bold; font-size: 16px;">
+                                                <td style="text-align: right; color: #000;">Balance Due:</td>
+                                                <td style="text-align: right; color: #000">$<span
+                                                        th:text="${total}"></span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -136,14 +108,6 @@
             </tr>
             <tr style="height: 30px; font-size: 1px;">
                 <td colspan="3" valign="top" height="30">&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan="3" height="40">
-                    <h3
-                        style="width: 100%; font-family: Verdana, Arial, Helvetica, sans-serif; 85%; line-height: 1.5; color: #000; padding: 0; margin: 0;">
-                        Service information
-                    </h3>
-                </td>
             </tr>
             <tr style="height: 30px; font-size: 1px;">
                 <td colspan="3" valign="top" height="30">&nbsp;</td>
@@ -151,120 +115,48 @@
             <tr>
                 <td colspan="3" valign="top">
                     <table
-                        style="width: 99%; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
-                        border="0" cellspacing="0" cellpadding="0">
+                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+                        border="0" cellspacing="0" cellpadding="8">
                         <tbody>
+                            <tr style="background-color: #333;">
+                                <td style="text-align: left; font-weight: bold; color: white;" width="40%" height="20">
+                                    Item
+                                </td>
+                                <td style="text-align: left; font-weight: bold; color: white;" height="20">
+                                    Quantity
+                                </td>
+                                <td style="text-align: right; font-weight: bold; color: white;" height="20">
+                                    Rate
+                                </td>
+                                <td style="text-align: right; font-weight: bold; color: white;" height="20">
+                                    Amount
+                                </td>
+                            </tr>
                             <tr>
-                                <td style="text-align: left; font-weight: bold; color: #666;" width="70%" height="20">
-                                    No.</td>
-                                <td style="text-align: left; font-weight: bold; color: #666;" width="140%" height="20">
-                                    Name</td>
-                                <td style="text-align: left; font-weight: bold; color: #666;" width="210%" height="20">
-                                    Description
-                                </td>
-                                <td style="text-align: left; font-weight: bold; color: #666;" width="70%" height="20">
-                                    Note</td>
-                                <td style="text-align: right; font-weight: bold; color: #666;" width="70%" height="20">
-                                    Price</td>
+                                <td colspan="7" style="height: 8px;"></td>
                             </tr>
-                            <tr style="height: 2px; font-size: 1px;">
-                                <td style="height: 2px;  font-size: 1px;" colspan="7" valign="top" height="2">&nbsp;
-                                </td>
-                            </tr>
-                            <!--START_PRODUCT_LOOP-->
-                            <tr style="height: 5px; font-size: 1px;">
-                                <td style="height: 5px; font-size: 1px;" colspan="7" valign="top" height="5">&nbsp;</td>
-                            </tr>
-                            <tr th:each="item : ${service.items}">
-                                <td width="70%" th:text="${itemStat.count}"></td>
-                                <td width="140%" th:text="${item.name}"></td>
-                                <td width="210%">
-                                    <pre th:text="${item.description}"></pre>
-                                </td>
+                            <tr style="color: #000;">
                                 <td>
-                                    <hr style="width: 100%; display: block" />
+                                    <span style="color: #000; font-weight: bold;" th:text="${timeRange}"></span><br />
+                                    <pre style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;"
+                                        th:utext="${service.information}"></pre>
                                 </td>
-                                <td width="70%" style="text-align: right" th:text="${item.price}"></td>
+                                <td valign="top" th:text="${service.hours}"></td>
+                                <td valign="top" style="text-align: right">$<span th:text="${service.rate}"></span></td>
+                                <td valign="top" style="text-align: right">$<span th:text="${total}"></span></td>
                             </tr>
-                            <tr style="height: 2px;  font-size: 1px;">
-                                <td style="height: 2px;  font-size: 1px;" colspan="7" valign="top" height="2">&nbsp;
-                                </td>
-                            </tr>
-                            <!--END_PRODUCT_LOOP-->
                         </tbody>
                     </table>
                     <table
-                        style="width: 100%; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
                         border="0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
-                                <td valign="top" width="100%">
-                                    <table
-                                        style="width: 95%; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0 auto;"
-                                        border="0" cellspacing="0" cellpadding="0" align="left">
-                                        <tbody>
-                                            <tr>
-                                                <td style="height: 30px; font-size: 1px;" valign="top" height="30">
-                                                    &nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="bg-gray" valign="top">
-                                                    <table
-                                                        style="width: 100%; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
-                                                        border="0" cellspacing="0" cellpadding="20">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="height: 10px; font-size: 1px;" valign="top"
-                                                                    height="10">&nbsp;
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td valign="top" height="10"><strong>Payment
-                                                                        Options</strong></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="line-height: 2;" valign="top"><strong
-                                                                        style="color: #ef4035; font-size: 130%; line-height: 2;">PayPal</strong><br />Please
-                                                                    send your payments to ourcompany@ourdomain.com
-                                                                    paypal id
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="line-height: 2;" valign="top"><strong
-                                                                        style="color: #ef4035; font-size: 130%; line-height: 2;">Bank
-                                                                        Wire</strong><br /><strong
-                                                                        style="color: #333;">Beneficiary:</strong>
-                                                                    American Express International Inc.<br /><strong
-                                                                        style="color: #333;">Address:</strong>
-                                                                    PO Box 537, Chelsea, VIC., 3196,
-                                                                    Australia<br /><strong style="color: #333;">Account
-                                                                        Number:</strong>
-                                                                    0015002201<br /><strong style="color: #333;">Bank
-                                                                        Name:</strong> JPMorgan
-                                                                    Chase<br /><strong style="color: #333;">Bank
-                                                                        Address:</strong> AAP Centre
-                                                                    Level 32, 259 George Street, Sydney NSW 2000,
-                                                                    Australia<br /><strong style="color: #333;">Bank's
-                                                                        SWIFT Code:</strong>
-                                                                    CHASAU2X<br /><strong style="color: #333;">Payment
-                                                                        Reference:</strong>
-                                                                    Flywire Pty Ltd 8624<br /> When making payment,
-                                                                    please include your
-                                                                    invoice number or company name in your payment
-                                                                    description.<br /><br /><br />
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
+                                <td valign="top" width="100%" height="100px">&nbsp;</td>
                                 <td valign="top" width="120%">
                                     <table
-                                        style="width: 100%; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
-                                        border="0" cellspacing="0" cellpadding="0" align="right">
+                                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+                                        border="0" cellspacing="0" cellpadding="8" align="right">
                                         <tbody>
                                             <tr style="height: 8px; font-size: 1px;">
                                                 <td style="height: 8px; font-size: 1px;" colspan="5" valign="top"
@@ -275,36 +167,10 @@
                                                     height="8">&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td width="100%">Currency:</td>
-                                                <td style="text-align: right;" width="75%">VND</td>
-                                                <td width="50%">&nbsp;</td>
-                                                <td width="150%">Subtotal:</td>
-                                                <td style="text-align: right;" width="150%" th:text="${total}"></td>
-                                            </tr>
-                                            <tr style="height: 32px; font-size: 1px;">
-                                                <td style="height: 8px; font-size: 1px;" colspan="5" valign="top"
-                                                    height="8">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="100%">Tax Rate:</td>
-                                                <td style="text-align: right;" width="75%"><span
-                                                        th:text="${tax*100}"></span>%</td>
-                                                <td width="50%">&nbsp;</td>
-                                                <td width="150%">Tax:</td>
-                                                <td style="text-align: right;" width="150%" th:text="${total*tax}"></td>
-                                            </tr>
-                                            <tr style="height: 32px; font-size: 1px;">
-                                                <td style="height: 8px; font-size: 1px;" colspan="5" valign="top"
-                                                    height="8">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="125%">&nbsp;</td>
-                                                <td width="75%">&nbsp;</td>
-                                                <td width="75%">&nbsp;</td>
-                                                <td style="font-weight: bold; color: #333;" width="150%">Grand Total
-                                                </td>
-                                                <td style="text-align: right; font-weight: bold; color: #333;"
-                                                    width="150%" th:text="${grandTotal}"></td>
+                                                <td width="225%">&nbsp;</td>
+                                                <td width="150%">Total:</td>
+                                                <td style="text-align: right; color: #000;" width="150%">$<span
+                                                        th:text="${total}"></span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -316,161 +182,6 @@
             </tr>
         </tbody>
     </table>
-    <div class="page-break"></div>
-    <article>
-        <div class="cover document" style="min-height: 1200px;">
-            <p>&nbsp;</p>
-            <h1>Web Design Agreement</h1>
-            <p>&nbsp;</p>
-        </div>
-        <div class="document">
-            <p class="pandatip">PandaTip: This Web Design Agreement Template is in the context of a designer offering
-                his or
-                her services to develop a website for his or her client.</p>
-            <p>This Web Design Agreement is entered into as of [Date] by and between [CompanyName] having its principal
-                place of business located at [Address] (the “Designer”) and [ClientName] having its principal place of
-                business located at [Address] (the “Client”), both of whom agree to be bound by this Agreement.</p>
-            <p>WHEREAS, the Client has conceptualized a website, as described on Exhibit A attached hereto (the
-                “Website”)
-                and desires to hire the Designer, who is engaged in the business of website development, to design such
-                Website.</p>
-            <p>NOW, THEREFORE, subject to the terms and conditions hereinafter set forth the Company and the Designer
-                hereto
-                (each individually a “Party” and collectively the “Parties”) agree as follows:</p>
-            <h2>1. WEB DESIGN SERVICES.</h2>
-            <p>The Designer shall develop all deliverables required to implement the Website as described on Exhibit A
-                attached hereto (the “Services”).</p>
-            <p class="pandatip">PandaTip: As this Web Design Agreement Template may be used with several different
-                clients
-                that have different websites that they want created, the best practice is to include an editable Exhibit
-                A
-                that can be customized for each client’s needs.</p>
-            <h2>2. FEES AND EXPENSES.</h2>
-            <p><strong>2.1. Fees</strong></p>
-            <p>The Client shall pay the Designer on an hourly basis at a rate of ::Rate:: per hour. The Client shall
-                provide
-                a retainer of ::RetainerAmount:: to the Designer on or before the fifteenth (15th) day following receipt
-                of
-                each monthly invoice against which it will bill for the Services.</p>
-            <p class="pandatip">PandaTip: This Web Design Agreement Template allows for both hourly fees and a retainer,
-                which is an amount paid in advance to be applied against fees when they are incurred and billed. If you
-                choose not to take a retainer, you may just enter “0” in the “retainer amount” field.</p>
-            <p><strong>2.2. Expenses.</strong></p>
-            <p>The Designer may incur costs (including but not limited to travel, lodging, and other costs incidental to
-                the
-                Services) for which it shall be reimbursed by the Client. The Designer will obtain approval from the
-                Client
-                prior to incurring such costs.</p>
-            <p class="pandatip">PandaTip: The Designer may incur certain costs (i.e., if travel is required for the
-                project)
-                for which he or she should be reimbursed. This section obligates the client to pay for such expenses.
-            </p>
-            <p><strong>2.3. Invoicing</strong></p>
-            <p>The Designer shall provide an invoice to the Client within the first five (5) business days of each month
-                describing the hourly fees incurred the previous month and approved costs incurred. The Designer will
-                first
-                account for such fees by applying amounts from the retainer held and request any additional amounts
-                required
-                in excess of such retainer. Invoices shall be due and payable within fifteen (15) days of receipt.</p>
-            <h2>3. TERM AND TERMINATION.</h2>
-            <p>This Agreement shall last from the date of execution to the completion of the Services, as described
-                herein.
-                The Client may terminate this Agreement for any reason with fifteen (15) days notice to the Designer.
-                Upon
-                such notice of termination, the Designer will provide an invoice to the Client outlining all costs
-                incurred
-                to the point of such notice. Such costs shall be due and payable upon termination. The Designer may
-                withhold
-                any deliverables pursuant to the Services until such payment is made in full.</p>
-            <p class="pandatip">PandaTip: This section of the Web Design Agreement Template accounts for the unlikely
-                event
-                the Client decides to terminate before completion. It accounts for payment of all costs to that point
-                and
-                gives the Designer a mechanism (i.e., withholding deliverables) to enforce payment.</p>
-            <h2>4. DELIVERY.</h2>
-            <p>The Designer shall deliver all deliverables pursuant to the Services as described on Exhibit A. If the
-                Website as delivered does not conform with the specifications described on Exhibit A, the Client shall
-                within fifteen (15) days of the date of delivery notify the Designer in writing of the ways in which it
-                does
-                not conform with such specifications. The Designer agrees that upon receiving such notice, it shall make
-                reasonable efforts to correct any non-conformity. If such notice is not received within fifteen (15)
-                days
-                the Website shall be deemed to conform entirely with the specifications described on Exhibit A.</p>
-            <p class="pandatip">PandaTip: Web Design Agreements need to account for delivery of the Website. This
-                section
-                provides a reasonable 30 day period in which the Client may evaluate the functionality to be sure that
-                it
-                conforms to the needs of the client.</p>
-            <h2>5. CHANGE IN SPECIFICATIONS.</h2>
-            <p>The Client may request that changes be made to the specifications outlined on Exhibit A, or other aspects
-                of
-                the Agreement and tasks associated thereto. If the Client requests such a change, the Designer will use
-                its
-                best efforts to implement the requested change at no additional expense to the Client and without
-                delaying
-                delivery of the Website. In the event that the proposed change will, in the sole discretion of the
-                Designer,
-                require a delay in the delivery of the Website or would result in additional expense to the Client, then
-                the
-                Client and the Designer shall confer and the Client shall, in its discretion, elect either to withdraw
-                the
-                proposed change or require the Designer to deliver the Website with the proposed change and subject to
-                the
-                delay and/or additional expense.</p>
-            <p class="pandatip">PandaTip: As circumstances may necessitate a change to the requested deliverables, this
-                section accounts for a change to the original plan outlined in this Web Design Agreement Template while
-                balancing the Designer’s need to be paid for additional work if it changes the scope of any estimate
-                previously provided.</p>
-            <h2>6. PROPRIETARY RIGHTS.</h2>
-            <p>The Client shall be the owner of all right, title, and interest in any intellectual property in the
-                Website
-                and the Services shall be deemed a Work Made For Hire in accordance with the Copyright Act, as amended
-                from
-                time to time. The Designer acknowledges and agrees that the Website will contain valuable proprietary
-                rights
-                and disclaims all rights in such rights. The Designer hereby assigns to the Client without further
-                compensation all of its right, title, and interest in the Website and any and all related intellectual
-                property rights thereto.</p>
-            <p class="pandatip">PandaTip: Perhaps the most important paragraph to the client, this section of the Web
-                Design
-                Agreement Template assigns all intellectual property rights in the Website to the Client. “Work Made For
-                Hire” is a term of legal significance pursuant to the Copyright Act that means that the person doing the
-                work does not retain intellectual property rights – rather, those rights shall be held by the hiring
-                party
-                (i.e., the Client).</p>
-            <h2>7. INTELLECTUAL PROPERTY WARRANTY.</h2>
-            <p>The Designer warrants and represents that it will not knowingly violate the intellectual property rights
-                of
-                any third party in its performance of the Services. The Client warrants and represents that any content
-                provided to the Designer to facilitate the performance of the Services shall not violate the
-                intellectual
-                property rights of any third party and shall indemnify the Designer against any claim that results from
-                the
-                provision of such allegedly infringing content.</p>
-            <p class="pandatip">PandaTip: The Designer should warrant that he or she will not knowingly use the
-                intellectual
-                property of any third party in developing the Website. Similarly, the Client may provide content to the
-                Designer to implement the Website, in which case if the Designer gets sued due to such a thing, the
-                Client
-                should cover the costs incurred by the Designer in defending himself or herself.</p>
-            <h2>8. JURISDICTION AND VENUE.</h2>
-            <p>This Agreement shall be construed with and governed by the substantive laws of the State of [State].
-                Should
-                any claim or controversy arise between the Parties under the terms of this Agreement, such claim or
-                controversy shall be resolved only in the state or federal courts located in [County] County, [State],
-                and
-                said state and federal courts for the State of [State] shall be the only appropriate jurisdiction and
-                venue
-                for such claim or controversy.</p>
-            <h2>9. NO WAIVER OR MODIFICATION.</h2>
-            <p>No obligation in this Agreement shall be deemed waived, nor shall any term be modified without a consent
-                to
-                such waiver or change signed byboth Parties.</p>
-            <p>IN WITNESS WHEREOF, each of the Parties has executed this Stock Subscription Agreement, both Parties by
-                its
-                duly authorized officer, as of the day and year set forth below.</p>
-        </div>
-    </article>
 </body>
 
 </html>

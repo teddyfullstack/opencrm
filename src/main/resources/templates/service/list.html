@@ -22,7 +22,10 @@
               <h5 class="card-title" th:text="${service.name}"></h5>
             </a>
             <div class="utext" th:utext="${service.information}"></div>
-            <p class="card-text">Last modified: <span th:text="${{service.updatedDate}}"></span></span></p>
+            <p class="card-text">
+              <a th:href="@{'/service/' + ${service.id} + '/export'}" class="btn btn-primary">Export</a>
+              <a th:href="@{'/customer/removeService/' + ${service.id}}" class="btn btn-dark">Remove</a>
+            </p>
           </div>
           <div class="card-footer border-top d-flex">
             <div class="card-post__author d-flex">

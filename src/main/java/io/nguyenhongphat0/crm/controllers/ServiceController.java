@@ -5,6 +5,7 @@ import io.nguyenhongphat0.crm.entities.Service;
 import io.nguyenhongphat0.crm.entities.ServiceItem;
 import io.nguyenhongphat0.crm.repositories.ServiceItemRepository;
 import io.nguyenhongphat0.crm.repositories.ServiceRepository;
+import io.nguyenhongphat0.crm.utils.DateUtil;
 import io.nguyenhongphat0.crm.utils.PdfUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,15 +98,20 @@ public class ServiceController {
         Map<String, Object> model = new HashMap();
         Service service = serviceRepository.findById(id);
         model.put("service", service);
-        double total = 0;
-        for (ServiceItem item : service.getItems()) {
-            total += item.getPrice();
-        }
-        final double tax = 0.08;
-        final double grandTotal = total + total * tax;
-        model.put("tax", tax);
+        Date createdDate = Date.from(service.getCreatedDate().atZone(ZoneId.systemDefault()).toInstant());
+        String dateHash = new SimpleDateFormat("DDMMYYYY").format(createdDate);
+        String dateString = new SimpleDateFormat("MMM D, YYYY").format(createdDate);
+        model.put("dateHash", dateHash);
+        model.put("dateString", dateString);
+        double total = service.getHours() * service.getRate();
         model.put("total", total);
-        model.put("grandTotal", grandTotal);
+        LocalDateTime monday = service.getCreatedDate().with(DayOfWeek.MONDAY);
+        LocalDateTime sunday = service.getCreatedDate().with(DayOfWeek.SUNDAY);
+        String timeRange = monday.format(DateTimeFormatter.ofPattern("MMMM d"))
+                + DateUtil.getDayOfMonthSuffix(monday.getDayOfMonth()) + " (Monday) - "
+                + sunday.format(DateTimeFormatter.ofPattern("MMMM d"))
+                + DateUtil.getDayOfMonthSuffix(monday.getDayOfMonth()) + " (Sunday):";
+        model.put("timeRange", timeRange);
         byte[] data = PdfUtil.generatePdf(springTemplateEngine, "pdf/invoice", model);
         PdfUtil.responsePdf(response, data, service.getName() + ".pdf");
     }
