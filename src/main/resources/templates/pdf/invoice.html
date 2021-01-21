@@ -11,6 +11,7 @@
 
         .utext p {
             margin: 6px 0;
+            line-height: 12px;
         }
 
         .bg-gray {
@@ -26,7 +27,6 @@
         <tbody>
             <tr>
                 <td valign="top">
-                    <img th:src="@{images/shards-dashboards-logo.svg}" alt="" height="100" />
                     <span style="color: #000; font-weight: bold;">ABC</span><br /><span>Company</span>
                 </td>
                 <td style="text-align: right; font-weight: bold; text-transform: uppercase; color: #999; font-family: Arial, Helvetica, sans-serif; font-size: 90%;"
@@ -139,7 +139,7 @@
                                 <td>
                                     <span style="color: #000; font-weight: bold;" th:text="${timeRange}"></span><br />
                                     <pre style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;"
-                                        th:utext="${service.information}"></pre>
+                                        class="utext" th:utext="${service.information}"></pre>
                                 </td>
                                 <td valign="top" th:text="${service.hours}"></td>
                                 <td valign="top" style="text-align: right">$<span th:text="${service.rate}"></span></td>
