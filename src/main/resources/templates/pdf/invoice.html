@@ -21,15 +21,19 @@
 </head>
 
 <body>
-    <table
-        style="width: 100%; font-family: Arial, Helvetica, sans-serif; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+    <table style="width: 100%; font-family: sans-serif; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
         border="0" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
                 <td valign="top">
-                    <span style="color: #000; font-weight: bold;">ABC</span><br /><span>Company</span>
+                    <span style="color: #000; font-weight: bold;">Nguyen Hong Phat</span><br />
+                    <span style="font-size: 14px;">
+                        Email: hongphat.js@gmail.com<br />
+                        Phone: +84589424815<br />
+                        Address: 267/31, Square 4, Area A, Hau Nghia Town,<br />
+                        Duc Hoa District, Long An Province, Viet Nam</span>
                 </td>
-                <td style="text-align: right; font-weight: bold; text-transform: uppercase; color: #999; font-family: Arial, Helvetica, sans-serif; font-size: 90%;"
+                <td style="text-align: right; font-weight: bold; text-transform: uppercase; color: #999; font-family: sans-serif; font-size: 90%;"
                     valign="top" height="100">
                     <h1 style=" color: #000; font-weight: lighter; font-size: 40px; margin-bottom: 0;">INVOICE</h1>
                     <h2 style="font-weight: lighter;"># <span th:text=" ${dateHash}"></span></h2>
@@ -43,13 +47,13 @@
         </tbody>
     </table>
     <table
-        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 90%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+        style="width: 100%; font-family: sans-serif; font-size: 90%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
         border="0" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
                 <td style="vertical-align: top;" width="90%">
                     <table
-                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; word-break: break-all; color: #999;"
+                        style="width: 100%; font-family: sans-serif; font-size: 100%; word-break: break-all; color: #999;"
                         border="0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
@@ -65,8 +69,8 @@
                                 <td valign="top">
                                     <span style="color: #000; font-weight: bold;"
                                         th:text="${service.customer.name}"></span><br />
-                                    <pre style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;"
-                                        class="utext" th:utext="${service.customer.information}"></pre>
+                                    <pre style="font-family: sans-serif; font-size: 14px;" class="utext"
+                                        th:utext="${service.customer.information}"></pre>
                                 </td>
                             </tr>
                         </tbody>
@@ -115,7 +119,7 @@
             <tr>
                 <td colspan="3" valign="top">
                     <table
-                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+                        style="width: 100%; font-family: sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
                         border="0" cellspacing="0" cellpadding="8">
                         <tbody>
                             <tr style="background-color: #333;">
@@ -123,7 +127,7 @@
                                     Item
                                 </td>
                                 <td style="text-align: left; font-weight: bold; color: white;" height="20">
-                                    Quantity
+                                    Hours
                                 </td>
                                 <td style="text-align: right; font-weight: bold; color: white;" height="20">
                                     Rate
@@ -138,8 +142,8 @@
                             <tr style="color: #000;">
                                 <td>
                                     <span style="color: #000; font-weight: bold;" th:text="${timeRange}"></span><br />
-                                    <pre style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;"
-                                        class="utext" th:utext="${service.information}"></pre>
+                                    <pre style="font-family: sans-serif; font-size: 14px;" class="utext"
+                                        th:utext="${service.information}"></pre>
                                 </td>
                                 <td valign="top" th:text="${service.hours}"></td>
                                 <td valign="top" style="text-align: right">$<span th:text="${service.rate}"></span></td>
@@ -148,14 +152,14 @@
                         </tbody>
                     </table>
                     <table
-                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+                        style="width: 100%; font-family: sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
                         border="0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
                                 <td valign="top" width="100%" height="100px">&nbsp;</td>
                                 <td valign="top" width="120%">
                                     <table
-                                        style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
+                                        style="width: 100%; font-family: sans-serif; font-size: 100%; color: #999; border-collapse: collapse; padding: 0; margin: 0;"
                                         border="0" cellspacing="0" cellpadding="8" align="right">
                                         <tbody>
                                             <tr style="height: 8px; font-size: 1px;">
