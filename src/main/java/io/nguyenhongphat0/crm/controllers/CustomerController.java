@@ -1,11 +1,12 @@
 package io.nguyenhongphat0.crm.controllers;
 
-import io.nguyenhongphat0.crm.entities.Customer;
-import io.nguyenhongphat0.crm.entities.Estate;
-import io.nguyenhongphat0.crm.entities.Resource;
-import io.nguyenhongphat0.crm.entities.Service;
-import io.nguyenhongphat0.crm.repositories.CustomerRepository;
-import io.nguyenhongphat0.crm.repositories.ServiceRepository;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Base64;
-import java.util.Date;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import io.nguyenhongphat0.crm.entities.Customer;
+import io.nguyenhongphat0.crm.entities.Resource;
+import io.nguyenhongphat0.crm.entities.Service;
+import io.nguyenhongphat0.crm.repositories.CustomerRepository;
+import io.nguyenhongphat0.crm.repositories.ServiceRepository;
 
 @Controller
 @RequestMapping("/customer")
@@ -77,7 +74,7 @@ public class CustomerController {
         Customer customer = entityManager.getReference(Customer.class, id);
         service.setCustomer(customer);
         service.setType(2);
-        String dateString = new SimpleDateFormat("DDMMYYYY").format(new Date());
+        String dateString = new SimpleDateFormat("ddMMyyyy").format(new Date());
         service.setName("Invoice # " + dateString);
         serviceRepository.save(service);
         return new RedirectView("/customer/" + id);

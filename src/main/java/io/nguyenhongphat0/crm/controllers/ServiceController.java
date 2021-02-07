@@ -99,8 +99,8 @@ public class ServiceController {
         Service service = serviceRepository.findById(id);
         model.put("service", service);
         Date createdDate = Date.from(service.getCreatedDate().atZone(ZoneId.systemDefault()).toInstant());
-        String dateHash = new SimpleDateFormat("DDMMYYYY").format(createdDate);
-        String dateString = new SimpleDateFormat("MMM D, YYYY").format(createdDate);
+        String dateHash = new SimpleDateFormat("ddMMyyyy").format(createdDate);
+        String dateString = new SimpleDateFormat("MMM d, yyyy").format(createdDate);
         model.put("dateHash", dateHash);
         model.put("dateString", dateString);
         double total = service.getHours() * service.getRate();
@@ -110,7 +110,7 @@ public class ServiceController {
         String timeRange = monday.format(DateTimeFormatter.ofPattern("MMMM d"))
                 + DateUtil.getDayOfMonthSuffix(monday.getDayOfMonth()) + " (Monday) - "
                 + sunday.format(DateTimeFormatter.ofPattern("MMMM d"))
-                + DateUtil.getDayOfMonthSuffix(monday.getDayOfMonth()) + " (Sunday):";
+                + DateUtil.getDayOfMonthSuffix(sunday.getDayOfMonth()) + " (Sunday):";
         model.put("timeRange", timeRange);
         byte[] data = PdfUtil.generatePdf(springTemplateEngine, "pdf/invoice", model);
         PdfUtil.responsePdf(response, data, service.getName() + ".pdf");
