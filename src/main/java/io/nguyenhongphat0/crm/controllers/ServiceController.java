@@ -105,12 +105,14 @@ public class ServiceController {
         model.put("dateString", dateString);
         double total = service.getHours() * service.getRate();
         model.put("total", total);
-        LocalDateTime monday = service.getCreatedDate().with(DayOfWeek.MONDAY);
-        LocalDateTime sunday = service.getCreatedDate().with(DayOfWeek.SUNDAY);
+        LocalDateTime monday = service.getCreatedDate().minusDays(6);
+        LocalDateTime sunday = service.getCreatedDate();
         String timeRange = monday.format(DateTimeFormatter.ofPattern("MMMM d"))
-                + DateUtil.getDayOfMonthSuffix(monday.getDayOfMonth()) + " (Monday) - "
+                + DateUtil.getDayOfMonthSuffix(monday.getDayOfMonth()) + " ("
+                + monday.format(DateTimeFormatter.ofPattern("EEEE")) + ") - "
                 + sunday.format(DateTimeFormatter.ofPattern("MMMM d"))
-                + DateUtil.getDayOfMonthSuffix(sunday.getDayOfMonth()) + " (Sunday):";
+                + DateUtil.getDayOfMonthSuffix(sunday.getDayOfMonth()) + " ("
+                + sunday.format(DateTimeFormatter.ofPattern("EEEE")) + "):";
         model.put("timeRange", timeRange);
         byte[] data = PdfUtil.generatePdf(springTemplateEngine, "pdf/invoice", model);
         PdfUtil.responsePdf(response, data, service.getName() + ".pdf");
