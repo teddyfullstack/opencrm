@@ -30,8 +30,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            whoami
-            cd mobilise/ui/dashboard
+            cd /home/upstage/mobilise/ui/dashboard/
             git pull
             yarn
             yarn build
